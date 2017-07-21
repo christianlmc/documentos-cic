@@ -19,6 +19,7 @@ class Funcionario extends Model
 		'matricula_siape',	// Matrícula do funcionário no SIAPE
 		'periodo_inicio',	// Data de ingresso do funcionário na UnB
 		'periodo_fim',		// Data do desligamento do funcionário da UnB. Pode armazenar também a data prevista de fim do estágio
+		'is_supervisor',	// Booleano identificando um supervisor
 		'hora_inicio',		// Horário de entrada no trabalho
 		'hora_fim',			// Horário de saída do trabalho
 		'fk_lotacao',		// Chave estrangeira que armazena a lotação do funcionário

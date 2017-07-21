@@ -7,7 +7,7 @@ use Laravel\Cargo;
 
 class tipo_Ocorrencia extends Model
 {
-	public $table = "tipo_ocorrencia"
+	public $table = "tipo_ocorrencia";
     public $timestamps = false;
 
 	protected $fillable = [

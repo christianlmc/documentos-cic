@@ -41,4 +41,10 @@ class Funcionario extends Model
 	{
 		return $this->hasOne(Funcionario::class,'id','fk_supervisor');
 	}
+
+	public function datas_especiais()
+	{
+		return $this->hasMany(datas_Especiais::class, 'fk_funcionario', 'id');
+	}
+
 }

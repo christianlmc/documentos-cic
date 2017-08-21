@@ -499,14 +499,16 @@
             @if($dia->isSaturday())
             <tr>
                 <th>{{$dia->day}}</th>
+                @for($i = 0; $i < 8; $i++)
                 <td>Sábado</td>
-                <td>Sábado</td>
-                <td>Sábado</td>
-                <td>Sábado</td>
-                <td>Sábado</td>
-                <td>Sábado</td>
-                <td>Sábado</td>
-                <td>Sábado</td>
+                @endfor
+            </tr>
+            @elseif($dia->isSunday())
+            <tr>
+                <th>{{$dia->day}}</th>
+                @for($i = 0; $i < 8; $i++)
+                <td>Domingo</td>
+                @endfor
             </tr>
             @elseif($dia->day === 0)
             <tr>
@@ -520,29 +522,12 @@
                 <td>D</td>
                 <td>O</td>
             </tr>
-            @elseif($dia->isSunday())
-            <tr>
-                <th>{{$dia->day}}</th>
-                <td>Domingo</td>
-                <td>Domingo</td>
-                <td>Domingo</td>
-                <td>Domingo</td>
-                <td>Domingo</td>
-                <td>Domingo</td>
-                <td>Domingo</td>
-                <td>Domingo</td>
-            </tr>
             @else
             <tr>
                 <th>{{$dia->day}}</th>
+                @for($i = 0; $i < 8; $i++)
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                @endfor
             </tr>
             @endif
             @endforeach

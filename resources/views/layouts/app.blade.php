@@ -57,6 +57,9 @@
                             <li {{{ (Request::is('imprimefolha') ? 'class=active' : '') }}}>
                                 <a href="{{url('/imprimefolha')}}">Imprimir Folha de Ponto</a>
                             </li>
+                            <li {{{ (Request::is('datasespeciais') ? 'class=active' : '') }}}>
+                                <a href="{{url('/datasespeciais')}}">Folgas e Feriados</a>
+                            </li>
                         @endif
                     </ul>
 

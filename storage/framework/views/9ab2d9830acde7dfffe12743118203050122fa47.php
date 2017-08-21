@@ -58,6 +58,9 @@
                             <li <?php echo e((Request::is('imprimefolha') ? 'class=active' : '')); ?>>
                                 <a href="<?php echo e(url('/imprimefolha')); ?>">Imprimir Folha de Ponto</a>
                             </li>
+                            <li <?php echo e((Request::is('datasespeciais') ? 'class=active' : '')); ?>>
+                                <a href="<?php echo e(url('/datasespeciais')); ?>">Folgas e Feriados</a>
+                            </li>
                         <?php endif; ?>
                     </ul>
 

@@ -16,7 +16,7 @@ function escolheCargo(){
         `,
         buttons:{
             @foreach($cargos as $cargo_id => $cargo)
-
+            @if($cargo_id != 9999)
             '{{$cargo}}':{
                 text: '{{$cargo}}',
                 btnClass: 'btn-dark',
@@ -24,6 +24,7 @@ function escolheCargo(){
                     inserir('{{$cargo}}','{{$cargo_id}}');
                 }
             },
+            @endif
 
             @endforeach            
         },

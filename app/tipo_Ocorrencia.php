@@ -19,4 +19,5 @@ class tipo_Ocorrencia extends Model
 	{
 		return $this->hasOne(Cargo::class, 'id', 'cargo_id');
 	}
+
 }

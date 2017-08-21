@@ -29,7 +29,7 @@ class OcorrenciaController extends Controller
             'funcionario_id' => 'required',
             'tipo_ocorrencia' => 'required',
             'data_inicio' => 'date_format:d/m/Y',
-            'data_fim' => 'date_format:d/m/Y',
+            'data_fim' => 'date_format:d/m/Y|after_or_equal:data_inicio',
         ]);
 
         $data->data_inicio = Carbon::createFromFormat('d/m/Y',$data->data_inicio);

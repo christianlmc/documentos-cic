@@ -44,5 +44,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/imprimefolha/cargo/{id}', 'ImprimeController@folhaPorCargo');
 
+	Route::get('/datasespeciais', 'DatasEspeciaisController@index');
+	Route::get('/datasespeciais/{userId}', 'DatasEspeciaisController@funcionarioDatasEspeciais');
+	Route::post('/datasespeciais/{userId}', 'DatasEspeciaisController@insertDataEspecial');
+	Route::delete('/datasespeciais/{dataId}', 'DatasEspeciaisController@deleteDataEspecial');
+
 	Route::get('/folhateste', 'ImprimeController@folhaTeste');
 });

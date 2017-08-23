@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Funcionario;
 use Laravel\Ocorrencia;
 use Laravel\tipo_Ocorrencia;
+use Laravel\datas_Especiais;
 use Carbon\Carbon;
 
 class OcorrenciaController extends Controller
@@ -38,7 +39,7 @@ class OcorrenciaController extends Controller
         try 
         {  
             Ocorrencia::create([
-            	'data_inicio' => $data->data_inicio,
+                'data_inicio' => $data->data_inicio,
                 'data_fim' => $data->data_fim,
                 'fk_tipo_ocorrencia' => $data->tipo_ocorrencia,
                 'fk_funcionario' => $data->funcionario_id,
@@ -46,15 +47,53 @@ class OcorrenciaController extends Controller
         }
         catch (Exception $e)
         {
-        	echo 'Exceção', $e->getMessage(), '\n';
+            echo 'Exceção', $e->getMessage(), '\n';
             die();
         }
+        
+        $firstday = $data->data_inicio;
+        $lastday = $data->data_fim;
 
+        while ($firstday->lte($lastday)) {
+            try{
+                datas_Especiais::create([
+                    'data' => $firstday,
+                    'fk_tipo_ocorrencia' => $data->tipo_ocorrencia,
+                    'fk_funcionario' => $data->funcionario_id,
+                ]);
+            }
+            catch (Exception $e)
+            {
+                echo 'Exceção', $e->getMessage(), '\n';
+                die();
+            }
+            $firstday->addDay();
+        }
     	return redirect('/ocorrencias/' . $data->funcionario_id);
     }
 
     public function deleteOcorrencia($id){
-    	try 
+    	$ocorrencia = Ocorrencia::find($id);
+
+        $firstday = Carbon::createFromFormat('Y-m-d', $ocorrencia->data_inicio);
+        $lastday = Carbon::createFromFormat('Y-m-d', $ocorrencia->data_fim);
+
+        while ($firstday->lte($lastday)) {
+            try{
+                $data = datas_Especiais::whereDate('data', $firstday->toDateString())
+                        ->where('fk_funcionario', $ocorrencia->fk_funcionario)->delete();
+
+            }
+            catch (Exception $e)
+            {
+                echo 'Exceção', $e->getMessage(), '\n';
+                die();
+            }
+
+            $firstday->addDay();
+        }
+
+        try 
         {
             Ocorrencia::destroy($id);
         }

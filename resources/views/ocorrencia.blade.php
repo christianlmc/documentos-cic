@@ -155,7 +155,8 @@ function deleteOcorrenciaById($id){
                         dataType: "json",
                         type: 'DELETE',
                         url:'/ocorrencias/' + $id,
-                        success:function(){
+                        success:function(data){
+                            console.log(data.data_inicio);
                             $("#" + $id).remove();
                             $.confirm({
                                 title: 'A ocorrência foi deletada',

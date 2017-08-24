@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/datasespeciais', 'DatasEspeciaisController@index');
 	Route::get('/datasespeciais/{userId}', 'DatasEspeciaisController@funcionarioDatasEspeciais');
 	Route::post('/datasespeciais/{userId}', 'DatasEspeciaisController@insertDataEspecial');
+	Route::post('/datasespeciais', 'DatasEspeciaisController@insertDataEspecialTodos');
 	Route::delete('/datasespeciais/{dataId}', 'DatasEspeciaisController@deleteDataEspecial');
 
 	Route::get('/folhateste', 'ImprimeController@folhaTeste');

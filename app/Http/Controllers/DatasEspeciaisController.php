@@ -12,7 +12,8 @@ class DatasEspeciaisController extends Controller
 {
     public function index(){
     	$funcionarios = Funcionario::all();
-    	return view('datasespeciais', compact('funcionarios'));
+        $tipos_de_data = tipo_Ocorrencia::where('cargo_id', 9999)->pluck('descricao', 'id');
+    	return view('datasespeciais', compact('funcionarios', 'tipos_de_data'));
     }
 
     public function funcionarioDatasEspeciais($funcionarioId){
@@ -50,6 +51,34 @@ class DatasEspeciaisController extends Controller
         }
 
         return redirect('/datasespeciais/' . $funcionarioId);
+    }
+
+    public function insertDataEspecialTodos(Request $data){        
+        $this->validate($data, [
+            'data_tipo' => 'required',
+            'data' => 'date_format:d/m/Y',
+        ]);
+
+        $funcionarios = Funcionario::all();
+        $data->data = Carbon::createFromFormat('d/m/Y',$data->data);
+
+        try 
+        {  
+            foreach ($funcionarios as $funcionario) {
+                datas_Especiais::create([
+                    'data' => $data->data,
+                    'fk_tipo_ocorrencia' => $data->data_tipo,
+                    'fk_funcionario' => $funcionario->id,
+                ]);
+            }
+        }
+        catch (Exception $e)
+        {
+            echo 'Exceção', $e->getMessage(), '\n';
+            die();
+        }
+
+        return redirect('/datasespeciais/');
     }
 
     public function deleteDataEspecial($dataEspecialId){

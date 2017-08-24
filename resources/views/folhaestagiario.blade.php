@@ -495,7 +495,7 @@
                 <th colspan="2">SAÍDA</th>
                 <th colspan="2">ENTRADA</th>
             </tr>
-            @foreach($dias as $dia)
+            @foreach($estagiario->dias as $dia)
             @if($dia->isSaturday())
             <tr>
                 <th>{{$dia->day}}</th>
@@ -510,17 +510,12 @@
                 <td>Domingo</td>
                 @endfor
             </tr>
-            @elseif($dia->day === 0)
+            @elseif($dia->hour == 0)
             <tr>
                 <th>{{$dia->day}}</th>
-                <td>x</td>
-                <td>F</td>
-                <td>E</td>
-                <td>R</td>
-                <td>I</td>
-                <td>A</td>
-                <td>D</td>
-                <td>O</td>
+                @for($i = 0; $i < 8; $i++)
+                <td align="center">X</td>
+                @endfor
             </tr>
             @else
             <tr>

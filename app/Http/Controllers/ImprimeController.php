@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Laravel\Ocorrencia;
 use Laravel\Lotacao;
 use Laravel\Cargo;
+use Laravel\datas_Especiais;
 
 class ImprimeController extends Controller
 {
@@ -15,7 +16,7 @@ class ImprimeController extends Controller
     	$funcionarios = Funcionario::all();
         $supervisores = Funcionario::where('is_supervisor', 1)->pluck('nome', 'id');
         $lotacoes = Lotacao::all()->pluck('descricao', 'id');
-        $cargos = Cargo::all();
+        $cargos = Cargo::whereNotIn('id', [9999])->get();
 
         foreach ($cargos as $cargo) {
             $cargo->descricao = $cargo->descricao.' - '.$cargo->carga_horaria.'Hrs';
@@ -94,6 +95,10 @@ class ImprimeController extends Controller
     }
 
     private function viewFolhaEstagiario($estagiarios){
+        
+        setlocale(LC_TIME, 'pt_BR');
+        $mes = new Carbon('last month');
+
         foreach ($estagiarios as $estagiario) {
             $estagiario->periodo_inicio = Carbon::parse($estagiario->periodo_inicio)->format('d/m/Y');
             $estagiario->periodo_fim = Carbon::parse($estagiario->periodo_fim)->format('d/m/Y');
@@ -107,22 +112,32 @@ class ImprimeController extends Controller
                 $ocorrencia->data_fim = Carbon::parse($ocorrencia->data_fim)->format('d/m/Y');
             }
 
-            $estagiario->ocorrencias = $ocorrencias;
-        }
+            $datas_estagiario = datas_Especiais::where('fk_funcionario', $estagiario->id)
+                                                ->whereMonth('data', $mes->month)->get();
 
-        setlocale(LC_TIME, 'pt_BR');
-        $mes = new Carbon('last month');
+            $firstday = new Carbon('first day of last month');
+            $lastday = new Carbon('last day of last month');
+            
+            $dias = [];
+            while ($firstday->lte($lastday)) {
+                $dias[] = $firstday->copy();
+                $firstday->addDay();
+            }
+
+            foreach ($dias as $dia) {
+                $data_especial = $datas_estagiario->where('data', $dia->format('Y-m-d'))
+                                ->where('fk_funcionario', $estagiario->id)->all();
+                if($data_especial){
+                    $dia->hour = 0;
+                }
+            }
+
+            $estagiario->dias = $dias;
+            $estagiario->ocorrencias = $ocorrencias;
+
+        }
 
         $mes = $mes->formatLocalized('%B/%Y');
-
-        $firstday = new Carbon('first day of last month');
-        $lastday = new Carbon('last day of last month');
-        
-        $dias = [];
-        while ($firstday->lte($lastday)) {
-             $dias[] = $firstday->copy();
-             $firstday->addDay();
-        }
 
         return view('folhaestagiario', compact('estagiarios', 'mes', 'dias'));
     }

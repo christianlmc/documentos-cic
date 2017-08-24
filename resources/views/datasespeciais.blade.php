@@ -9,7 +9,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                 <h3>Folgas e feriados
-                {!! Form::submit('Adicionar folga/feriado a todos', ['class' => 'btn btn-success pull-right', 'onclick' => 'data_especial_todos()']) !!}
+                {!! Form::submit('Adicionar folga/feriado a todos', ['class' => 'btn btn-success pull-right', 'onclick' => 'addDataEspecial()']) !!}
                 </h3>
                 </div>
 
@@ -68,6 +68,52 @@ $(document).ready(function(){
         },
     });
 });
+function addDataEspecial(){
+    $.confirm({
+        title: 'Adicionar folga/feriado a todos',
+        content: `
+        {!! Form::open(['method' => 'POST', 'url' => '/datasespeciais/', 'id' => 'form']) !!}
+        <div class="form-group{{ $errors->has('data_tipo') ? ' has-error' : '' }}">
+            {!! Form::label('data_tipo', 'Selecione o tipo:') !!}
+            {!! Form::select('data_tipo', $tipos_de_data, null, ['id' => 'data_tipo', 'class' => 'form-control', 'required' => 'required']) !!}
+            <small class="text-danger ">{{ $errors->first('data_tipo') }}</small>
+        </div>
+        <div class="form-group{{ $errors->has('data') ? ' has-error' : '' }}">
+            {!! Form::label('data', 'Digite a data:') !!}
+            {!! Form::text('data', null, ['class' => 'form-control', 'required' => 'required', 'data-error' => 'Este campo é obrigatório']) !!}
+            <small class="text-danger help-block with-errors">{{ $errors->first('data') }}</small>
+        </div>
+        {!! Form::close() !!}
+        `,
+        buttons:{
+            'add':{
+                text: 'Adicionar',
+                btnClass: 'btn-green',
+                action: function(){
+                    $('#form').submit();
+                }
+            },
+            'cancel':{
+                text: 'Cancelar',
+                btnClass: 'btn-danger',
+                action: function(){
+                }
+            },
+        },
+        onContentReady: function() {
+            $('#form').validator();
+
+            $('#data').mask('d0/mM/0000',{
+                'translation': {
+                    d: {pattern: /([0-3])/},
+                    m: {pattern: /([0-1])/},
+                    M: {pattern: /[0-9]/},
+                }
+            });
+        },
+        backgroundDismiss: true,
+    });    
+}
 
 function datas_funcionario($funcionarioId){
     $.ajax({

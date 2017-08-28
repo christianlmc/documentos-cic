@@ -31,12 +31,15 @@
                                 <td>{{$funcionario->lotacao->descricao}}</td>
                                 <td>{{$funcionario->cargo->descricao}}</td>
                                 <td>
-                                    @if($funcionario->cargo->descricao == 'Estagiário')
+                                    {{-- @if($funcionario->cargo->descricao == 'Estagiário')
                                     <button type="button" onclick="window.location.href='/imprimefolha/estagiario/{{$funcionario->id}}'" class="btn btn-warning">Imprimir</button>
                                     @elseif($funcionario->cargo->descricao == 'Servidor')
                                     <button type="button" onclick="window.location.href='/imprimefolha/servidor/{{$funcionario->id}}'" class="btn btn-warning">Imprimir</button>
                                     @elseif($funcionario->cargo->descricao == 'Professor')
                                     <button type="button" onclick="window.location.href='/imprimefolha/professor/{{$funcionario->id}}'" class="btn btn-warning">Imprimir</button>
+                                    @endif --}}
+                                    @if($funcionario->cargo->descricao == 'Estagiário')
+                                    <button type="button" onclick="selecionarMes({{$funcionario->id}})" class="btn btn-warning">Imprimir</button>
                                     @endif
                                 </td>
                             </tr>
@@ -102,6 +105,38 @@ function escolherFolhas (){
         },
         backgroundDismiss: true,
     });
+}
+
+function selecionarMes($funcionario_id){
+    $.confirm({
+        title: 'Selecione o mês:',
+        content: `
+        {!! Form::open(['method' => 'POST', 'url' => '/imprimefolha/estagiario/`+$funcionario_id+`', 'id' => 'form']) !!}
+            <div class="form-group{{ $errors->has('mes') ? ' has-error' : '' }}">
+                {!! Form::label('mes', 'Selecione o mês:') !!}
+                {!! Form::select('mes', $meses, date('Y-m-d H:i:s'), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
+                <small class="text-danger">{{ $errors->first('mes') }}</small>
+            </div>
+        {!! Form::close() !!}
+        `,
+        buttons:{
+            'escolher':{
+                text: 'Escolher',
+                btnClass: 'btn-success',
+                action: function(){
+                    $("#form").submit();
+                }
+            },
+            'cancel':{
+                text: 'Cancelar',
+                btnClass: 'btn-danger',
+                action: function(){
+                }
+            },
+        },
+        backgroundDismiss: true,
+        }
+    );
 }
 
 function porSupervisor(){

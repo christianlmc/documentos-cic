@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/imprimefolha', 'ImprimeController@index');
 
-	Route::get('/imprimefolha/estagiario/{id}', 'ImprimeController@folhaEstagiario');
+	Route::post('/imprimefolha/estagiario/{id}', 'ImprimeController@folhaEstagiario');
 	Route::get('/imprimefolha/estagiario/supervisor/{id}', 'ImprimeController@folhaEstagiariosPorSupervisor');
 	Route::get('/imprimefolha/estagiario/lotacao/{id}', 'ImprimeController@folhaEstagiariosPorLotacao');
 

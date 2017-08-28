@@ -17,19 +17,24 @@ class ImprimeController extends Controller
         $supervisores = Funcionario::where('is_supervisor', 1)->pluck('nome', 'id');
         $lotacoes = Lotacao::all()->pluck('descricao', 'id');
         $cargos = Cargo::whereNotIn('id', [9999])->get();
+        
+        $meses = [];
+
+        for($month = Carbon::now()->subMonths(5); $month != Carbon::now()->addMonths(2);$month->addMonth())
+            $meses[$month->copy()->toDateTimeString()] = $month->copy()->format('m/Y');
 
         foreach ($cargos as $cargo) {
             $cargo->descricao = $cargo->descricao.' - '.$cargo->carga_horaria.'Hrs';
         }
         $cargos = $cargos->pluck('descricao', 'id');
         
-    	return view('imprimefolha', compact('funcionarios', 'supervisores', 'lotacoes', 'cargos'));
+    	return view('imprimefolha', compact('funcionarios', 'supervisores', 'lotacoes', 'cargos', 'meses'));
     }
 
-    public function folhaEstagiario($id){
+    public function folhaEstagiario($id, Request $data){
         $estagiarios[] = Funcionario::findOrFail($id);
 
-        return $this->viewFolhaEstagiario($estagiarios);        
+        return $this->viewFolhaEstagiario($estagiarios, $data->mes);        
     }
 
     public function folhaEstagiariosPorSupervisor($supervisor){
@@ -94,10 +99,10 @@ class ImprimeController extends Controller
         }        
     }
 
-    private function viewFolhaEstagiario($estagiarios){
+    private function viewFolhaEstagiario($estagiarios, $mes_referencia){
         
         setlocale(LC_TIME, 'pt_BR');
-        $mes = new Carbon('last month');
+        $mes = Carbon::createFromFormat('Y-m-d H:i:s', $mes_referencia);
 
         foreach ($estagiarios as $estagiario) {
             $estagiario->periodo_inicio = Carbon::parse($estagiario->periodo_inicio)->format('d/m/Y');
@@ -115,8 +120,8 @@ class ImprimeController extends Controller
             $datas_estagiario = datas_Especiais::where('fk_funcionario', $estagiario->id)
                                                 ->whereMonth('data', $mes->month)->get();
 
-            $firstday = new Carbon('first day of last month');
-            $lastday = new Carbon('last day of last month');
+            $firstday = $mes->startOfMonth()->endOfDay()->copy();
+            $lastday = $mes->endOfMonth()->copy();
             
             $dias = [];
             while ($firstday->lte($lastday)) {

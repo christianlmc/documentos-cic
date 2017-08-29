@@ -37,23 +37,23 @@ class ImprimeController extends Controller
         return $this->viewFolhaEstagiario($estagiarios, $mes);        
     }
 
-    public function folhaEstagiariosPorSupervisor($supervisor){
+    public function folhaEstagiariosPorSupervisor($supervisor, $mes){
         $estagiarios = Funcionario::where([
             ['fk_supervisor', $supervisor],
             ['fk_cargo', 2]
         ])->get();
 
-        return $this->viewFolhaEstagiario($estagiarios);
+        return $this->viewFolhaEstagiario($estagiarios, $mes);
 
     }
 
-    public function folhaEstagiariosPorLotacao($lotacao){
+    public function folhaEstagiariosPorLotacao($lotacao, $mes){
         $estagiarios = Funcionario::where([
             ['fk_lotacao', $lotacao],
             ['fk_cargo', 2]
         ])->get();
 
-        return $this->viewFolhaEstagiario($estagiarios);
+        return $this->viewFolhaEstagiario($estagiarios, $mes);
     }
 
     public function folhaServidor($id, $mes){
@@ -62,22 +62,22 @@ class ImprimeController extends Controller
         return $this->viewFolhaServidor($servidores, $mes);        
     }
 
-    public function folhaServidoresPorSupervisor($supervisor){
+    public function folhaServidoresPorSupervisor($supervisor, $mes){
         $servidores = Funcionario::where([
             ['fk_supervisor', $supervisor],
             ['fk_cargo', 3]
         ])->get();
 
-        return $this->viewFolhaServidor($servidores);        
+        return $this->viewFolhaServidor($servidores, $mes);        
     }
 
-    public function folhaServidoresPorLotacao($lotacao){
+    public function folhaServidoresPorLotacao($lotacao, $mes){
         $servidores = Funcionario::where([
             ['fk_lotacao', $lotacao],
             ['fk_cargo', 3]
         ])->get();
 
-        return $this->viewFolhaServidor($servidores);        
+        return $this->viewFolhaServidor($servidores, $mes);        
     }
 
     public function folhaPorCargo($cargo, $mes){
@@ -102,7 +102,13 @@ class ImprimeController extends Controller
     private function viewFolhaEstagiario($estagiarios, $mes_referencia){
         
         setlocale(LC_TIME, 'pt_BR');
-        $mes = Carbon::createFromFormat('m-Y', $mes_referencia);
+        try{
+            $mes = Carbon::createFromFormat('m-Y', $mes_referencia);
+        }
+        catch (Exception $e){
+            echo 'Exceção', $e->getMessage(), '\n';
+            die();
+        }
 
         foreach ($estagiarios as $estagiario) {
             $estagiario->periodo_inicio = Carbon::parse($estagiario->periodo_inicio)->format('d/m/Y');

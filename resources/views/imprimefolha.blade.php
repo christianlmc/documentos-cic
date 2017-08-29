@@ -175,7 +175,7 @@ function porSupervisor(){
                 action: function(){
                     var $cargo = $('input[name=cargo]:checked', '#radio-group').val().split(" ");
                     $cargo = RemoveAccents($cargo[0]).toLowerCase();
-                    window.location.href='/imprimefolha/' + $cargo + '/supervisor/' + $("#supervisor").val();
+                    window.location.href='/imprimefolha/' + $cargo + '/supervisor/' + $("#supervisor").val() + '/' + $("#mes").val();
                 }
             },
             'cancel':{
@@ -224,7 +224,7 @@ function porLotacao(){
                 action: function(){
                     var $cargo = $('input[name=cargo]:checked', '#radio-group').val().split(" ");
                     $cargo = RemoveAccents($cargo[0]).toLowerCase();
-                    window.location.href='/imprimefolha/'+ $cargo + '/lotacao/' + $("#lotacao").val();
+                    window.location.href='/imprimefolha/'+ $cargo + '/lotacao/' + $("#lotacao").val() + '/' + $("#mes").val();
                 }
             },
             'cancel':{

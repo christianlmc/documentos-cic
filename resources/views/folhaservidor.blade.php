@@ -241,7 +241,7 @@
                 <td colspan="2" style="text-align: center"><b>Saída</b></td>
                 <td style="text-align: center"><b>Ocorrência</b></td>
             </tr>
-            @foreach($dias as $dia)
+            @foreach($servidor->dias as $dia)
                 @if($dia->isSaturday())
                 <tr>
                     <th>{{$dia->day}}</th>
@@ -260,17 +260,12 @@
                     <td colspan="2">Domingo</td>
                     <td></td>
                 </tr>
-                @elseif($dia->day === 0)
+                @elseif($dia->hour == 0)
                 <tr>
                     <th>{{$dia->day}}</th>
-                    <td>x</td>
-                    <td>F</td>
-                    <td>E</td>
-                    <td>R</td>
-                    <td>I</td>
-                    <td>A</td>
-                    <td>D</td>
-                    <td>O</td>
+                    @for($i = 0; $i < 9; $i++)
+                    <td align="center">X</td>
+                    @endfor
                 </tr>
                 @else
                 <tr>

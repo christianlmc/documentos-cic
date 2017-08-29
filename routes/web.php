@@ -34,15 +34,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/imprimefolha', 'ImprimeController@index');
 
-	Route::post('/imprimefolha/estagiario/{id}', 'ImprimeController@folhaEstagiario');
-	Route::get('/imprimefolha/estagiario/supervisor/{id}', 'ImprimeController@folhaEstagiariosPorSupervisor');
-	Route::get('/imprimefolha/estagiario/lotacao/{id}', 'ImprimeController@folhaEstagiariosPorLotacao');
+	Route::get('/imprimefolha/estagiario/{id}/{data}', 'ImprimeController@folhaEstagiario');
+	Route::get('/imprimefolha/estagiario/supervisor/{id}/{data}', 'ImprimeController@folhaEstagiariosPorSupervisor');
+	Route::get('/imprimefolha/estagiario/lotacao/{id}/{data}', 'ImprimeController@folhaEstagiariosPorLotacao');
 
-	Route::get('/imprimefolha/servidor/{id}', 'ImprimeController@folhaServidor');
-	Route::get('/imprimefolha/servidor/supervisor/{id}', 'ImprimeController@folhaServidoresPorSupervisor');
-	Route::get('/imprimefolha/servidor/lotacao/{id}', 'ImprimeController@folhaServidoresPorLotacao');
+	Route::get('/imprimefolha/servidor/{id}/{data}', 'ImprimeController@folhaServidor');
+	Route::get('/imprimefolha/servidor/supervisor/{id}/{data}', 'ImprimeController@folhaServidoresPorSupervisor');
+	Route::get('/imprimefolha/servidor/lotacao/{id}/{data}', 'ImprimeController@folhaServidoresPorLotacao');
 
-	Route::get('/imprimefolha/cargo/{id}', 'ImprimeController@folhaPorCargo');
+	Route::get('/imprimefolha/cargo/{id}/{data}', 'ImprimeController@folhaPorCargo');
 
 	Route::get('/datasespeciais', 'DatasEspeciaisController@index');
 	Route::get('/datasespeciais/{userId}', 'DatasEspeciaisController@funcionarioDatasEspeciais');

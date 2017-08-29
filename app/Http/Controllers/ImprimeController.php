@@ -21,7 +21,7 @@ class ImprimeController extends Controller
         $meses = [];
 
         for($month = Carbon::now()->subMonths(5); $month != Carbon::now()->addMonths(2);$month->addMonth())
-            $meses[$month->copy()->toDateTimeString()] = $month->copy()->format('m/Y');
+            $meses[$month->copy()->format('m-Y')] = $month->copy()->format('m/Y');
 
         foreach ($cargos as $cargo) {
             $cargo->descricao = $cargo->descricao.' - '.$cargo->carga_horaria.'Hrs';
@@ -31,10 +31,10 @@ class ImprimeController extends Controller
     	return view('imprimefolha', compact('funcionarios', 'supervisores', 'lotacoes', 'cargos', 'meses'));
     }
 
-    public function folhaEstagiario($id, Request $data){
+    public function folhaEstagiario($id, $mes){
         $estagiarios[] = Funcionario::findOrFail($id);
 
-        return $this->viewFolhaEstagiario($estagiarios, $data->mes);        
+        return $this->viewFolhaEstagiario($estagiarios, $mes);        
     }
 
     public function folhaEstagiariosPorSupervisor($supervisor){
@@ -56,10 +56,10 @@ class ImprimeController extends Controller
         return $this->viewFolhaEstagiario($estagiarios);
     }
 
-    public function folhaServidor($id){
+    public function folhaServidor($id, $mes){
         $servidores[] = Funcionario::findOrFail($id);
 
-        return $this->viewFolhaServidor($servidores);        
+        return $this->viewFolhaServidor($servidores, $mes);        
     }
 
     public function folhaServidoresPorSupervisor($supervisor){
@@ -80,17 +80,17 @@ class ImprimeController extends Controller
         return $this->viewFolhaServidor($servidores);        
     }
 
-    public function folhaPorCargo($cargo){
+    public function folhaPorCargo($cargo, $mes){
         $funcionarios = Funcionario::where('fk_cargo', $cargo)->get();
         switch ($cargo) {
             case '1':
                 # code...
                 break;
             case '2':
-                return $this->viewFolhaEstagiario($funcionarios);
+                return $this->viewFolhaEstagiario($funcionarios, $mes);
                 break;
             case '3':
-                return $this->viewFolhaServidor($funcionarios);
+                return $this->viewFolhaServidor($funcionarios, $mes);
                 break;
             
             default:
@@ -102,7 +102,7 @@ class ImprimeController extends Controller
     private function viewFolhaEstagiario($estagiarios, $mes_referencia){
         
         setlocale(LC_TIME, 'pt_BR');
-        $mes = Carbon::createFromFormat('Y-m-d H:i:s', $mes_referencia);
+        $mes = Carbon::createFromFormat('m-Y', $mes_referencia);
 
         foreach ($estagiarios as $estagiario) {
             $estagiario->periodo_inicio = Carbon::parse($estagiario->periodo_inicio)->format('d/m/Y');
@@ -147,7 +147,10 @@ class ImprimeController extends Controller
         return view('folhaestagiario', compact('estagiarios', 'mes', 'dias'));
     }
 
-    private function viewFolhaServidor($servidores){
+    private function viewFolhaServidor($servidores, $mes_referencia){
+        setlocale(LC_TIME, 'pt_BR');
+        $mes = Carbon::createFromFormat('m-Y', $mes_referencia);
+
         foreach ($servidores as $servidor) {
             $ocorrencias = Ocorrencia::where('fk_funcionario', $servidor->id)->get();
 
@@ -155,23 +158,31 @@ class ImprimeController extends Controller
                 $ocorrencia->data_inicio = Carbon::parse($ocorrencia->data_inicio)->format('d/m/Y');
                 $ocorrencia->data_fim = Carbon::parse($ocorrencia->data_fim)->format('d/m/Y');
             }
+            $datas_servidor = datas_Especiais::where('fk_funcionario', $servidor->id)
+                                                    ->whereMonth('data', $mes->month)->get();
+            $firstday = $mes->startOfMonth()->endOfDay()->copy();
+            $lastday = $mes->endOfMonth()->copy();
+            
+            $dias = [];
+            while ($firstday->lte($lastday)) {
+                 $dias[] = $firstday->copy();
+                 $firstday->addDay();
+            }
+
+
+            foreach ($dias as $dia) {
+                $data_especial = $datas_servidor->where('data', $dia->format('Y-m-d'))
+                                ->where('fk_funcionario', $servidor->id)->all();
+                if($data_especial){
+                    $dia->hour = 0;
+                }
+            }
 
             $servidor->ocorrencias = $ocorrencias;
+            $servidor->dias = $dias;
         }
-
-        setlocale(LC_TIME, 'pt_BR');
-        $mes = new Carbon('last month');
 
         $mes = $mes->formatLocalized('%B/%Y');
-
-        $firstday = new Carbon('first day of last month');
-        $lastday = new Carbon('last day of last month');
-        
-        $dias = [];
-        while ($firstday->lte($lastday)) {
-             $dias[] = $firstday->copy();
-             $firstday->addDay();
-        }
 
         return view('folhaservidor', compact('servidores', 'dias', 'mes'));
     }

@@ -76,7 +76,7 @@ function selecionarMes($funcionario_id, $cargo){
         content: `
         <div class="form-group{{ $errors->has('mes') ? ' has-error' : '' }}">
             {!! Form::label('mes', 'Mês de Referência') !!}
-            {!! Form::select('mes', $meses, date('m-Y'), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
+            {!! Form::select('mes', $meses, date('m-Y', strtotime("-1 months")), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
             <small class="text-danger">{{ $errors->first('mes') }}</small>
         </div>
         `,
@@ -164,7 +164,7 @@ function porSupervisor(){
         </div>
         <div class="form-group{{ $errors->has('mes') ? ' has-error' : '' }}">
             {!! Form::label('mes', 'Mês de Referência') !!}
-            {!! Form::select('mes', $meses, date('m-Y'), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
+            {!! Form::select('mes', $meses, date('m-Y', strtotime("-1 months")), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
             <small class="text-danger">{{ $errors->first('mes') }}</small>
         </div>
         `,
@@ -213,7 +213,7 @@ function porLotacao(){
         </div>
         <div class="form-group{{ $errors->has('mes') ? ' has-error' : '' }}">
             {!! Form::label('mes', 'Mês de Referência') !!}
-            {!! Form::select('mes', $meses, date('m-Y'), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
+            {!! Form::select('mes', $meses, date('m-Y', strtotime("-1 months")), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
             <small class="text-danger">{{ $errors->first('mes') }}</small>
         </div>
         `,
@@ -250,7 +250,7 @@ function porCargo(){
         </div>
         <div class="form-group{{ $errors->has('mes') ? ' has-error' : '' }}">
             {!! Form::label('mes', 'Mês de Referência') !!}
-            {!! Form::select('mes', $meses, date('m-Y'), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
+            {!! Form::select('mes', $meses, date('m-Y', strtotime("-1 months")), ['id' => 'mes', 'class' => 'form-control', 'required' => 'required']) !!}
             <small class="text-danger">{{ $errors->first('mes') }}</small>
         </div>
         `,

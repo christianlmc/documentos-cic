@@ -15,12 +15,13 @@ class ImprimeController extends Controller
     public function index(){
     	$funcionarios = Funcionario::all();
         $supervisores = Funcionario::where('is_supervisor', 1)->pluck('nome', 'id');
-        $lotacoes = Lotacao::all()->pluck('descricao', 'id');
+        $lotacoes = Lotacao::all()->pluck('sigla', 'id');
         $cargos = Cargo::whereNotIn('id', [9999])->get();
         
         $meses = [];
 
-        for($month = Carbon::now()->subMonths(5); $month != Carbon::now()->addMonths(2);$month->addMonth())
+
+        for($month = Carbon::now()->startOfMonth()->subMonths(5); $month < Carbon::now()->startOfMonth()->addMonths(2);$month->addMonth())
             $meses[$month->copy()->format('m-Y')] = $month->copy()->format('m/Y');
 
         foreach ($cargos as $cargo) {

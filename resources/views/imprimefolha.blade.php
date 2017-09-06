@@ -28,7 +28,7 @@
                             @foreach($funcionarios as $funcionario)
                             <tr id="{{$funcionario->id}}">
                                 <td>{{$funcionario->nome}}</td>
-                                <td>{{$funcionario->lotacao->descricao}}</td>
+                                <td>{{$funcionario->lotacao->sigla}}</td>
                                 <td>{{$funcionario->cargo->descricao}}</td>
                                 <td>
                                     {{-- @if($funcionario->cargo->descricao == 'Estagiário')

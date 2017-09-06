@@ -16,11 +16,11 @@ class FuncionarioController extends Controller
         $supervisores = Funcionario::where('is_supervisor', '<>', 0)->pluck('nome', 'id');
         $supervisores->put(0, "Sem supervisor");
 
-        $lotacoes = Lotacao::pluck('descricao', 'id');
+        $lotacoes = Lotacao::pluck('sigla', 'id');
         $cargos = Cargo::all();
 
         foreach ($cargos as $cargo) {
-            $cargo->descricao = $cargo->descricao.' - '.$cargo->carga_horaria.'Hrs';
+            $cargo->sigla = $cargo->sigla.' - '.$cargo->carga_horaria.'Hrs';
         }
         $cargos = $cargos->pluck('descricao', 'id');
 

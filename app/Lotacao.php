@@ -14,7 +14,7 @@ class Lotacao extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'descricao',  		// Nome do departamento a que o funcionário pertence
+		'descricao', 'sigla', 'codigo', 		// Nome do departamento a que o funcionário pertence
 	];
 
 	public function funcionarios()

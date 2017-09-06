@@ -185,7 +185,7 @@
                 <td>
                     <div>Lotação</div>
                     <div>&nbsp;</div>
-                    <div><b>{{$estagiario->lotacao->descricao}}</b></div>
+                    <div><b>{{$estagiario->lotacao->sigla}}</b></div>
                     <div>&nbsp;</div>
                 </td>
                 <td>
@@ -227,137 +227,20 @@
                 </td>
             </tr>
             <tr>
+            <?php  $counter = 1 ; ?>
+            @foreach($estagiario->cargo->tipo_ocorrencia as $tipo_ocorrencia)
                 <th>
-                    <div>1</div>
+                    <div>{{$counter++}}</div>
                 </th>
                 <td>
-                    <div>Recesso (Lei Nº 11.788, art. 13)</div>
+                    <div>{{$tipo_ocorrencia->descricao}}</div>
                 </td>
                 <td>
                 </td>
                 <td>
                 </td>
             </tr>
-            <tr>
-                <th>
-                    2
-                </th>
-                <td>
-                    Atestado médico (*)
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    3
-                </th>
-                <td>
-                    Atestado escolar (*)
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    4
-                </th>
-                <td>
-                    Outras faltas justificadas (*)
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    5
-                </th>
-                <td>
-                    Horário reduzido para avaliação escolar (*)
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    6
-                </th>
-                <td>
-                    Dispensa de ponto pelo supervisor
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    7
-                </th>
-                <td>
-                    Falta compensada em outro dia
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    8
-                </th>
-                <td>
-                    Feriado/ponto facultativo
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    9
-                </th>
-                <td>
-                    Falta não-justificada
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    10
-                </th>
-                <td>
-                    Rescisão (Desligamento)
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    11
-                </th>
-                <td>
-                    Outros (**)
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
+            @endforeach
             <tr>
                 <td class="special-field">
                 </td>

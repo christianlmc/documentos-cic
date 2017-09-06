@@ -45,7 +45,7 @@
                             @foreach($funcionarios as $funcionario)
                             <tr id="{{$funcionario->id}}">
                                 <td>{{$funcionario->nome}}</td>
-                                <td>{{$funcionario->lotacao->descricao}}</td>
+                                <td>{{$funcionario->lotacao->sigla}}</td>
                                 <td>{{$funcionario->cargo->descricao}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning" onclick="window.location.href='/ocorrencias/{{$funcionario->id}}'">+ Ocorrencia</button>

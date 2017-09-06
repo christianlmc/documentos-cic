@@ -184,8 +184,8 @@
     </table>
     <table width="100%">
         <tr>
-            <td width="50%">{{$servidor->lotacao->descricao}}</td>
-            <td width="35%">{{$servidor->cargo->descricao}}</td>
+            <td width="50%">{{$servidor->lotacao->codigo}} - {{$servidor->lotacao->sigla}} - {{$servidor->lotacao->descricao}}</td>
+            <td width="35%">{{$servidor->cargo_especifico}}</td>
             <td width="15%">{{$servidor->cargo->carga_horaria}}</td>
         </tr>
     </table>
@@ -202,20 +202,15 @@
     <b class="font8">Ocorrências - Legenda</b>
     <table width="100%" class="font7-table">
         <tr>
-            <td>LCO - Licênça com Ônus</td>
-            <td>LM - Licênça Médica</td>
-            <td>LSO - Licênça s/ Ônus</td>
-            <td>LE - Licênça Especial</td>
-            <td>LG - Licênça Gestante</td>
-            <td>LC - Licênça Capacitação</td>
-        </tr>
-        <tr>
-            <td>FE - Férias</td>
-            <td>FA - Faltas</td>
-            <td>FP - Folga Plantão</td>
-            <td>Gr - Greve</td>
-            <td>Pr - Paralização</td>
-            <td>Dt - Dedetização</td>
+        <?php  $counter = 0 ; ?>
+        @foreach($servidor->cargo->tipo_ocorrencia as $tipo_ocorrencia)
+         <?php  $counter++; ?>
+            <td>{{$tipo_ocorrencia->sigla}} - {{$tipo_ocorrencia->descricao}}</td>
+            @if($counter == 6)
+            </tr>
+            <tr>
+            @endif
+        @endforeach
         </tr>
         <tr>
             <td>__-__________</td>

@@ -12,7 +12,8 @@ class tipo_Ocorrencia extends Model
 
 	protected $fillable = [
 		'descricao',  	// Descrição da ocorrência
-		'cargo_id',		// Chave estrangeira responsável por armazenar o tipo de cargo a que aquela ocorrência se refere
+		'cargo_id',		// Chave estrangeira responsável por armazenar o tipo de cargo a que aquela ocorrência se refere,
+		'sigla',
 	];
 
 	public function cargo()

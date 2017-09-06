@@ -19,4 +19,8 @@ class Cargo extends Model
 		'descricao',  		// Nome do cargo
 		'carga_horaria',	// Carga horária do cargo descrita em horas
 	];
+
+	public function tipo_ocorrencia(){
+		return $this->hasMany(tipo_Ocorrencia::class);
+	}
 }

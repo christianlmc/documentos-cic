@@ -43,7 +43,7 @@
                             <?php $__currentLoopData = $funcionarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $funcionario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr id="<?php echo e($funcionario->id); ?>">
                                 <td><?php echo e($funcionario->nome); ?></td>
-                                <td><?php echo e($funcionario->lotacao->descricao); ?></td>
+                                <td><?php echo e($funcionario->lotacao->sigla); ?></td>
                                 <td><?php echo e($funcionario->cargo->descricao); ?></td>
                                 <td>
                                     <button type="button" class="btn btn-warning" onclick="window.location.href='/ocorrencias/<?php echo e($funcionario->id); ?>'">+ Ocorrencia</button>

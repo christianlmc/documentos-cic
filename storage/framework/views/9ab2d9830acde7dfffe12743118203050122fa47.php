@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,width, height=device-height, initial-scale=1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -12,17 +12,17 @@
 
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/navbar-black.css')); ?>" rel="stylesheet">
 
     <style type="text/css">
-        body {
-            background: rgba(214,214,214,1);
-            background: -moz-linear-gradient(left, rgba(214,214,214,1) 0%, rgba(235,235,235,1) 100%);
-            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(214,214,214,1)), color-stop(100%, rgba(235,235,235,1)));
-            background: -webkit-linear-gradient(left, rgba(214,214,214,1) 0%, rgba(235,235,235,1) 100%);
-            background: -o-linear-gradient(left, rgba(214,214,214,1) 0%, rgba(235,235,235,1) 100%);
-            background: -ms-linear-gradient(left, rgba(214,214,214,1) 0%, rgba(235,235,235,1) 100%);
-            background: linear-gradient(to right, rgba(214,214,214,1) 0%, rgba(235,235,235,1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6d6d6', endColorstr='#ebebeb', GradientType=1 );
+        html {
+            background: #f7f7f7;
+            background: -moz-linear-gradient(top, #f7f7f7 0%, #ffffff 100%);
+            background: -webkit-linear-gradient(top, #f7f7f7 0%,#ffffff 100%);
+            background: linear-gradient(to bottom, #f7f7f7 0%,#ffffff 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#ffffff',GradientType=0 );
+            background-repeat:no-repeat;
+            height:100%;
         }
     </style>
     

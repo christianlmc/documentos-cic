@@ -369,6 +369,12 @@ function updateFuncionarioById($id){
                                 <small class="text-danger">{{ $errors->first('is_supervisor') }}</small>
                             </div>
 
+                            <div class="form-group{{ $errors->has('cargo_especifico') ? ' has-error' : '' }}">
+                                {!! Form::label('cargo_especifico', 'Cargo Específico') !!}
+                                {!! Form::text('cargo_especifico', '`+funcionario.cargo_especifico+`', ['class' => 'form-control', 'required' => 'required', 'data-error' => 'Este campo é obrigatório']) !!}
+                                <small class="text-danger help-block with-errors">{{ $errors->first('cargo_especifico') }}</small>
+                            </div>
+
                             <div class="form-group{{ $errors->has('supervisor') ? ' has-error' : '' }}">
                                 {!! Form::label('supervisor', 'Supervisor') !!}
                                 {!! Form::select('supervisor',$supervisores, null, ['id' => 'supervisor', 'class' => 'form-control', 'placeholder' => 'Selecione o supervisor']) !!}
@@ -678,6 +684,11 @@ function formulario_servidor($cargo, $cargo_id){
 	                <small class="text-danger">{{ $errors->first('is_supervisor') }}</small>
 	            </div>
 
+                <div class="form-group{{ $errors->has('cargo_especifico') ? ' has-error' : '' }}">
+                    {!! Form::label('cargo_especifico', 'Cargo Específico') !!}
+                    {!! Form::text('cargo_especifico', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Ex: Técnico de Tecnologia da Informação', 'data-error' => 'Este campo é obrigatório']) !!}
+                    <small class="text-danger help-block with-errors">{{ $errors->first('cargo_especifico') }}</small>
+                </div>
 	            <div class="form-group{{ $errors->has('supervisor') ? ' has-error' : '' }}">
 	                {!! Form::label('supervisor', 'Supervisor') !!}
 	                {!! Form::select('supervisor',$supervisores, null, ['id' => 'supervisor', 'class' => 'form-control', 'placeholder' => 'Selecione o supervisor']) !!}

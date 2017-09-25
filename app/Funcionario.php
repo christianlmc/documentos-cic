@@ -22,7 +22,7 @@ class Funcionario extends Model
 		'is_supervisor',	// Booleano identificando um supervisor
 		'hora_inicio',		// Horário de entrada no trabalho
 		'hora_fim',			// Horário de saída do trabalho
-		'cargo_especifico',
+		'cargo_especifico',	// Cargo específico do servidor
 		'fk_lotacao',		// Chave estrangeira que armazena a lotação do funcionário
 		'fk_cargo',			// Chave estrangeira que armazena o cargo do funcionário
 		'fk_supervisor',	// Chave estrangeira que armazena o supervisor direto do funcionário

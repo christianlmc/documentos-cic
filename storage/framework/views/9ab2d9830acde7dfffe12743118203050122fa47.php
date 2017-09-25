@@ -15,7 +15,7 @@
     <link href="<?php echo e(asset('css/navbar-black.css')); ?>" rel="stylesheet">
 
     <style type="text/css">
-        html {
+        html, body {
             background: #f7f7f7;
             background: -moz-linear-gradient(top, #f7f7f7 0%, #ffffff 100%);
             background: -webkit-linear-gradient(top, #f7f7f7 0%,#ffffff 100%);

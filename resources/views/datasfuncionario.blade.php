@@ -26,7 +26,7 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif                    
                     @if (count($funcionario->datas_especiais) > 0)
                         <table id="table" class="table">
                             <thead>

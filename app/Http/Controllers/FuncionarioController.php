@@ -72,6 +72,7 @@ class FuncionarioController extends Controller
                     'matricula_siape' => 'nullable|unique:funcionarios|numeric',
                     'lotacao' => 'required',
                     'is_supervisor' => 'required',
+                    'cargo_especifico' => 'required',
                     'supervisor' => 'required',
                 ]);
                 break;
@@ -118,6 +119,7 @@ class FuncionarioController extends Controller
                     'matricula_siape' => 'nullable|numeric',
                     'lotacao' => 'required',
                     'is_supervisor' => 'required',
+                    'cargo_especifico' => 'required',
                     'supervisor' => 'required',
                 ]);
                 break;
@@ -150,6 +152,7 @@ class FuncionarioController extends Controller
                 'is_supervisor' => $data->is_supervisor,
                 'fk_lotacao' => $data->lotacao,
                 'fk_cargo' => $data->cargo,
+                'cargo_especifico' => $data->cargo_especifico,
                 'fk_supervisor' => $data->supervisor,
             ]);
         } 
@@ -189,6 +192,7 @@ class FuncionarioController extends Controller
                 'is_supervisor' => $data->is_supervisor,
                 'fk_lotacao' => $data->lotacao,
                 'fk_cargo' => $data->cargo,
+                'cargo_especifico' => $data->cargo_especifico,
                 'fk_supervisor' => $data->supervisor,
             ]);
         }

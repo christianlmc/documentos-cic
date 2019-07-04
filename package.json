@@ -13,11 +13,11 @@
     "axios": "^0.19",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.1",
-    "jquery": "^3.2",
+    "jquery": "^3.4.1",
     "laravel-mix": "^4.0.7",
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^4.0.2"
   }
 }

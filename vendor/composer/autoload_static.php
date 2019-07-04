@@ -4,14 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit086ceb84b03542b2e702751309730cb7
+class ComposerStaticInitbae11222f31051a33ee7953f553d8e0b
 {
     public static $files = array (
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
@@ -3995,10 +3995,10 @@ class ComposerStaticInit086ceb84b03542b2e702751309730cb7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit086ceb84b03542b2e702751309730cb7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit086ceb84b03542b2e702751309730cb7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit086ceb84b03542b2e702751309730cb7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit086ceb84b03542b2e702751309730cb7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbae11222f31051a33ee7953f553d8e0b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbae11222f31051a33ee7953f553d8e0b::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitbae11222f31051a33ee7953f553d8e0b::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitbae11222f31051a33ee7953f553d8e0b::$classMap;
 
         }, null, ClassLoader::class);
     }
